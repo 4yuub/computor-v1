@@ -1,4 +1,5 @@
-from .colors import BLUE, GREEN, MANDATORY, RED, RESET, YELLOW
+from help.explainations import print_linear_explaination, print_quadratic_explaination
+from .colors import CYAN, GREEN, RED, RESET, YELLOW
 
 
 def validate_equation(equation: list[str]):
@@ -84,6 +85,8 @@ def solve_linear(equation: dict[int, int]):
     a = equation.get(1, 0)
     b = equation.get(0, 0)
 
+    print_linear_explaination(a, b)
+
     if a == 0:
         raise ValueError("Cannot solve linear equation with a = 0")
 
@@ -102,6 +105,8 @@ def solve_quadratic(equation: dict[int, int]):
     
     delta = b * b - 4 * a * c
     ret["delta"] = delta
+
+    print_quadratic_explaination(a, b, c, delta)
 
     if delta < 0:
         ret["solutions"] = None
@@ -135,9 +140,6 @@ def solve_equation(equation: list[tuple[int, int]], degree: int):
 
 
 def print_solutions(solutions: dict[str, any]):
-    if solutions["delta"] is not None:
-        print(f"{GREEN}Delta is equal to: {YELLOW}{solutions['delta']}{RESET}")
-
     if solutions["number_of_solutions"] == 0:
         print(f"{RED}The equation has no real solutions.{RESET}")
         return
