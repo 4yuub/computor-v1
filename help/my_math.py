@@ -1,6 +1,18 @@
 def abs(n: int):
     return n if n >= 0 else -n
 
+def pow(n: int, p: int):
+    if p == 0:
+        return 1
+    res = pow(n, p // 2)
+    res *= res
+    if p % 2 == 1:
+        res *= n
+    return res
+
+def round(n: float, precision: int):
+    return int(n * pow(10, precision)) / pow(10, precision)
+
 def sqrt(n: int):
     res = -1
     min = 0
