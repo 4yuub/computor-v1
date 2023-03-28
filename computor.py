@@ -1,16 +1,21 @@
 #!/usr/bin/python3
 import sys
 
-from help.colors import BLUE, GREEN, MANDATORY, RED, RESET, YELLOW
+from help.colors import BLUE, GREEN, MAGENTA, MANDATORY, RED, RESET, YELLOW
 from help.tools import (get_degree_factor_pairs, get_flip_sign,
                         get_raw_equation, parse_fractions, pre_process,
                         print_solutions, solve_equation, validate_equation)
+
+print(f"{MAGENTA}Welcome to the ComputorV1!{RESET}")
 
 if len(sys.argv) != 2:
     print(f"{RED}Usage: ./computor.py <equation>{RESET}")
     sys.exit(1)
 
 equation = sys.argv[1].replace(" ", "").split("=")
+
+print(f"{MAGENTA}Step 1: Remove all spaces{RESET}")
+print(f"{MAGENTA}Step 2: Move evrything to one side and flip the sign{RESET}")
 
 if len(equation) != 2:
     print(f"{RED}The equation must contain one '='{RESET}")
@@ -24,10 +29,13 @@ equation = equation[0] + get_flip_sign(equation[1])
 
 print(f"{BLUE}Equation:{YELLOW} {equation} = 0{MANDATORY}")
 
+print(f"{MAGENTA}Step 3: Pre-process the equation{RESET}")
+
 pre_processed = pre_process(equation)
 
 print(f"{BLUE}Pre-processed:{YELLOW} {pre_processed}{MANDATORY}")
 
+print(f"{MAGENTA}Step 4: Get factor of each degree{RESET}")
 degree_factor = get_degree_factor_pairs(pre_processed)
 
 print(f"{BLUE}Degree-Factor pairs:{YELLOW} {degree_factor}{MANDATORY}")
@@ -50,9 +58,7 @@ print(f"{BLUE}Reduced form:{YELLOW} {raw_equation}{RESET}")
 
 print(f"{BLUE}Polynomial degree:{YELLOW} {max_degree}{MANDATORY}")
 
-if max_degree > 2:
-    print(f"{RED}The polynomial degree is stricly greater than 2, I can't solve{RESET}")
-    sys.exit(0)
+print(f"{MAGENTA}Step 5: Solve the equation{RESET}")
 
 try:
     solutions = solve_equation(degree_factor, max_degree)
