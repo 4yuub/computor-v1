@@ -135,6 +135,9 @@ def solve_equation(equation: list[tuple[int, int]], degree: int):
 
 
 def print_solutions(solutions: dict[str, any]):
+    if solutions["delta"] is not None:
+        print(f"{GREEN}Delta is equal to: {YELLOW}{solutions['delta']}{RESET}")
+
     if solutions["number_of_solutions"] == 0:
         print(f"{RED}The equation has no real solutions.{RESET}")
         return
@@ -144,8 +147,6 @@ def print_solutions(solutions: dict[str, any]):
         solution_as_fraction = solutions["solutions_as_fractions"][0]
         print(f"{GREEN}The solution is: {YELLOW}{solution}{RESET} {GREEN}or {YELLOW}{solution_as_fraction}{RESET}")
         return
-    
-    print(f"{BLUE}The delta is: {YELLOW}{solutions['delta']}{MANDATORY}")
 
     solution1 = solutions["solutions"][0]
     solution2 = solutions["solutions"][1]
