@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-from help.tools import validate_equation, get_flip_sign, pre_process, \
-    get_degree_factor_pairs, get_raw_equation, solve_equation, print_solutions, \
-    parse_fractions
-
-from help.colors import RED, BLUE, YELLOW, GREEN, RESET, MANDATORY
-
 import sys
+
+from help.colors import BLUE, GREEN, MANDATORY, RED, RESET, YELLOW
+from help.tools import (get_degree_factor_pairs, get_flip_sign,
+                        get_raw_equation, parse_fractions, pre_process,
+                        print_solutions, solve_equation, validate_equation)
 
 if len(sys.argv) != 2:
     print(f"{RED}Usage: ./computor.py <equation>{RESET}")
