@@ -1,5 +1,6 @@
-from help.explainations import print_linear_explaination, print_quadratic_explaination
-from .colors import CYAN, GREEN, RED, RESET, YELLOW
+from .explainations import print_linear_explaination, print_quadratic_explaination
+from .colors import GREEN, RED, RESET, YELLOW
+from .my_math import sqrt, abs
 
 
 def validate_equation(equation: list[str]):
@@ -120,7 +121,7 @@ def solve_quadratic(equation: dict[int, int]):
         ret["solutions_as_fractions"] = ((-b, 2 * a),)
         return ret
 
-    sqrt_delta = delta ** 0.5
+    sqrt_delta = sqrt(delta)
     ret["solutions"] = (int_or_float((-b - sqrt_delta) / (2 * a)), int_or_float((-b + sqrt_delta) / (2 * a)))
     ret["number_of_solutions"] = 2
     ret["solutions_as_fractions"] = ((-b - sqrt_delta, 2 * a), (-b + sqrt_delta, 2 * a))
@@ -178,6 +179,3 @@ def parse_fractions(solutions: dict[str, any]):
         as_strings.append(f"{abs(aa) * sign}/{abs(bb)}")
     
     solutions["solutions_as_fractions"] = tuple(as_strings)
-        
-
-# !check if can use ** 0.5 else use my_sqrt
