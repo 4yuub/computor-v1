@@ -6,7 +6,7 @@ from .my_math import sqrt, abs
 def validate_equation(equation: list[str]):
     import re
     equation_validator = re.compile(
-        "(((^[+-]?)|[+-])(([0-9]+(\*X(\^[0-9]+)?)?)|(([0-9]+\*)?X(\^[0-9]+)?)))+$")
+        "(((^[+-]?)|[+-])(([0-9]+(\.[0-9]+)?(\*X(\^[0-9]+)?)?)|(([0-9]+(\.[0-9]+)?\*)?X(\^[0-9]+)?)))+$")
     return equation_validator.match(equation[0]) and equation_validator.match(equation[1])
 
 
@@ -37,10 +37,10 @@ def get_degree_factor_pairs(pre_processed: list[str]):
         degree = None
         x_part = None
         if "*" in i:
-            factor = int(i.split("*")[0])
+            factor = round(float(i.split("*")[0]), 2)
             x_part = i.split("*")[1]
         elif "X" not in i:
-            factor = int(i)
+            factor = round(float(i), 2)
             x_part = ""
         else:
             factor = -1 if i[0] == '-' else 1
@@ -53,7 +53,7 @@ def get_degree_factor_pairs(pre_processed: list[str]):
         else:
             degree = 0
 
-        degree_factor[degree] = degree_factor.get(degree, 0) + factor
+        degree_factor[degree] = round(degree_factor.get(degree, 0) + factor, 2)
 
     sorted_result = sorted(degree_factor.items(),
                            key=lambda x: x[0], reverse=True)
@@ -62,7 +62,7 @@ def get_degree_factor_pairs(pre_processed: list[str]):
     return list(filtered_result)
 
 
-def get_raw_equation(equation: list[tuple[int, int]]):
+def get_raw_equation(equation: list[tuple[int, float]]):
     raw_equation = []
     for i in equation:
         degree = i[0]
@@ -78,10 +78,10 @@ def get_raw_equation(equation: list[tuple[int, int]]):
 
 
 def int_or_float(number):
-    return int(number) if int(number) == number else number
+    return int(number) if int(number) == number else round(number, 6)
 
 
-def solve_linear(equation: dict[int, int]):
+def solve_linear(equation: dict[int, float]):
     ret = {}
     a = equation.get(1, 0)
     b = equation.get(0, 0)
@@ -98,13 +98,13 @@ def solve_linear(equation: dict[int, int]):
     return ret
 
 
-def solve_quadratic(equation: dict[int, int]):
+def solve_quadratic(equation: dict[int, float]):
     ret = {}
     a = equation.get(2, 0)
     b = equation.get(1, 0)
     c = equation.get(0, 0)
     
-    delta = b * b - 4 * a * c
+    delta = round(b * b - 4 * a * c, 2)
     ret["delta"] = delta
 
     print_quadratic_explaination(a, b, c, delta)
@@ -128,7 +128,7 @@ def solve_quadratic(equation: dict[int, int]):
     return ret
 
 
-def solve_equation(equation: list[tuple[int, int]], degree: int):
+def solve_equation(equation: list[tuple[int, float]], degree: int):
     equation_as_dict = {key: value for key, value in equation}
 
     if degree > 2:
