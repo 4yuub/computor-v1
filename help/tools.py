@@ -148,7 +148,7 @@ def print_solutions(solutions: dict[str, any]):
     if solutions["number_of_solutions"] == 1:
         solution = solutions["solutions"][0]
         solution_as_fraction = solutions["solutions_as_fractions"][0]
-        print(f"{GREEN}The solution is: {YELLOW}{solution}{RESET} {GREEN}or {YELLOW}{solution_as_fraction}{RESET}")
+        print(f"{GREEN}The solution is: {YELLOW}{solution}{RESET} {solution_as_fraction}{RESET}")
         return
 
     solution1 = solutions["solutions"][0]
@@ -156,8 +156,8 @@ def print_solutions(solutions: dict[str, any]):
     solution1_as_fraction = solutions["solutions_as_fractions"][0]
     solution2_as_fraction = solutions["solutions_as_fractions"][1]
 
-    print(f"{GREEN}The solutions are: {YELLOW}{solution1}{RESET} {GREEN}or {YELLOW}{solution1_as_fraction}{RESET}")
-    print(f"{GREEN}and {YELLOW}{solution2}{RESET} {GREEN}or {YELLOW}{solution2_as_fraction}{RESET}")
+    print(f"{GREEN}The solutions are: {YELLOW}{solution1}{RESET} {solution1_as_fraction}{RESET}")
+    print(f"{GREEN}and {YELLOW}{solution2}{RESET} {solution2_as_fraction}{RESET}")
 
 
 def gcd(a, b):
@@ -176,6 +176,9 @@ def parse_fractions(solutions: dict[str, any]):
         aa = int(a // gcd(a, b))
         bb = int(b // gcd(a, b))
         sign = -1 if aa * bb < 0 else 1
-        as_strings.append(f"{abs(aa) * sign}/{abs(bb)}")
+        fraction = ""
+        if abs(bb) != 1 and aa < 100 and bb < 100:
+            fraction = f"{GREEN}or {YELLOW}{abs(aa) * sign}/{abs(bb)}"
+        as_strings.append(fraction)
     
     solutions["solutions_as_fractions"] = tuple(as_strings)
