@@ -1,5 +1,4 @@
-# Computor-v1 Project Readme
-
+# Computor-v1
 ## Overview
 
 Welcome to Computor-v1, a simple and efficient command-line calculator developed in Python. This project is designed to solve mathematical equations without utilizing Object-Oriented Programming (OOP) and employs uppercase 'X' as the variable for equations.
